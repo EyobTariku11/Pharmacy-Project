@@ -1,78 +1,29 @@
 /* ====== Page layout ====== */
-.login-container {
+.manage-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #ffffff;
   font-family: "Montserrat", sans-serif;
-  gap: 40px;
   padding: 0 40px;
 }
 
-/* ====== Left side ====== */
-.login-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  text-align: center;
-}
-
-.logo-image {
-  width: 700px;
-  height: auto;
-  margin-bottom: 20px;
-  transition: transform 0.5s ease, filter 0.3s ease;
-  cursor: pointer;
-  animation: floatLogo 3s ease-in-out infinite;
-}
-
-@keyframes floatLogo {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.logo-image:hover {
-  transform: scale(1.05);
-}
-
-.app-name {
-  font-size: 38px;
-  font-weight: 700;
-  color: #2c2c2c;
-  letter-spacing: 1px;
-}
-
-.app-name span {
-  color: #1f8c4d;
-}
-
-/* ====== Right side ====== */
-.login-right {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-box {
+/* ====== Form box ====== */
+.manage-box {
   background-color: #ffffff;
   border-radius: 18px;
   box-shadow: 0 0 20px rgba(31, 140, 77, 0.3);
   padding: 45px 50px;
-  width: 380px;
+  width: 600px;
   transition: all 0.3s ease;
 }
 
-.login-box:hover {
+.manage-box:hover {
   box-shadow: 0 0 28px rgba(31, 140, 77, 0.4);
 }
 
-.login-box h2 {
+.manage-box h2 {
   text-align: center;
   margin-bottom: 25px;
   font-size: 26px;
@@ -80,12 +31,13 @@
   color: #222;
 }
 
-/* ====== Floating Labels ====== */
+/* ====== Form ====== */
 .form-group {
   position: relative;
   margin-bottom: 20px;
 }
 
+/* Input styling */
 .form-group input {
   width: 100%;
   padding: 12px 10px;
@@ -97,11 +49,13 @@
   background: none;
 }
 
+/* Focus effect */
 .form-group input:focus {
   border-color: #1f8c4d;
   box-shadow: 0 0 6px rgba(31, 140, 77, 0.4);
 }
 
+/* Label styling */
 .form-group label {
   position: absolute;
   top: 12px;
@@ -115,6 +69,7 @@
   padding: 0 4px;
 }
 
+/* Floating effect: move label up when input is focused or has text */
 .form-group input:focus + label,
 .form-group input:not(:placeholder-shown) + label {
   top: -8px;
@@ -124,7 +79,7 @@
 }
 
 /* ====== Button ====== */
-.login-btn {
+.submit-btn {
   width: 100%;
   background-color: #1f8c4d;
   color: #fff;
@@ -137,64 +92,20 @@
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.login-btn:hover {
+.submit-btn:hover {
   background-color: #15703c;
   transform: scale(1.02);
 }
 
-/* ====== Links ====== */
-.links {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #444;
-}
-
-.forgot {
-  display: block;
-  color: #666;
-  margin-bottom: 10px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.forgot:hover {
-  color: #1f8c4d;
-}
-
-.signup {
-  color: #1f8c4d;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.signup:hover {
-  color: #15703c;
-}
-
 /* ====== Responsive Design ====== */
 @media (max-width: 900px) {
-  .login-container {
-    flex-direction: column;
+  .manage-container {
     padding: 20px;
-    height: auto;
+    min-height: auto;
   }
 
-  .login-left {
-    margin-bottom: 40px;
-  }
-
-  .login-box {
+  .manage-box {
     width: 100%;
     max-width: 360px;
-  }
-
-  .app-name {
-    font-size: 32px;
-  }
-
-  .logo-image {
-    width: 150px;
   }
 }

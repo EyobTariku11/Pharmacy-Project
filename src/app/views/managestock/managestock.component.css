@@ -1,0 +1,154 @@
+/* ====== Container ====== */
+.manage-stock-container {
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background-color: #f4f6f8; /* soft gray background like dashboard */
+  min-height: 100vh;
+}
+
+/* ====== Header Section ====== */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1f8c4d; /* main theme color */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-input {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  outline: none;
+  font-size: 14px;
+  width: 220px;
+  transition: 0.3s;
+  background-color: #fff;
+}
+
+.search-input:focus {
+  border-color: #1f8c4d;
+  box-shadow: 0 0 8px rgba(31, 140, 77, 0.3);
+}
+
+.add-btn {
+  padding: 10px 20px;
+  background-color: #1f8c4d;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 3px 6px rgba(31, 140, 77, 0.3);
+}
+
+.add-btn:hover {
+  background-color: #166838;
+}
+
+/* ====== Table Section ====== */
+.table-wrapper {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table thead {
+  background-color: #1f8c4d;
+  color: #fff;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.stock-table th {
+  font-weight: 600;
+}
+
+.stock-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.stock-table tbody tr:hover {
+  background-color: #f1f6ff;
+  transform: scale(1.01);
+}
+
+/* ====== Status Tags ====== */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status.active {
+  background-color: #e6f9ed;
+  color: #28a745;
+}
+
+.status.low {
+  background-color: #fff8e1;
+  color: #f0ad4e;
+}
+
+.status.out {
+  background-color: #fdecea;
+  color: #dc3545;
+}
+
+/* ====== Action Buttons ====== */
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-btn {
+  background-color: #17a2b8;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.edit-btn:hover {
+  background-color: #117a8b;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}

@@ -1,1 +1,66 @@
-<p>signup works!</p>
+<div class="login-container">
+  <!-- Left side with logo -->
+  <div class="login-left">
+    <img src="assets/images/logo.png" alt="Pharmacy Finder Logo" class="logo-image" />
+  </div>
+
+  <!-- Right side signup form -->
+  <div class="login-right">
+    <div class="login-box">
+      <h2>Sign Up</h2>
+
+      <form (ngSubmit)="onSignup()">
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <input id="fullName" type="text" [(ngModel)]="fullName" name="fullName" placeholder=" " required />
+          <label for="fullName">Full Name</label>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <input id="email" type="email" [(ngModel)]="email" name="email" placeholder=" " required />
+          <label for="email">Email</label>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <input id="password" type="password" [(ngModel)]="password" name="password" placeholder=" " required />
+          <label for="password">Password</label>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
+            placeholder=" " required />
+          <label for="confirmPassword">Confirm Password</label>
+        </div>
+
+        <!-- Role Selection -->
+        <!-- Role Selection -->
+        <div class="role-selection">
+          <label class="role-label">Select Role:</label>
+          <div class="role-toggle">
+            <button type="button" [class.active]="role === 'pharmacyOwner'" (click)="role = 'pharmacyOwner'">
+              Pharmacy Owner
+            </button>
+            <button type="button" [class.active]="role === 'customer'" (click)="role = 'customer'">
+              Customer
+            </button>
+          </div>
+        </div>
+
+
+        <button type="submit" class="login-btn">Sign Up</button>
+
+        <div class="links">
+          <p>
+            Already have an account?
+            <a href="login" class="signup">Log in</a>
+            <a href="manageproduct" class="signup">See Product Add</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

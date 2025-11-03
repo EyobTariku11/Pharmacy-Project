@@ -1,0 +1,61 @@
+<div class="manage-stock-container">
+  <!-- Header -->
+  <div class="header-section">
+    <h2>Manage Stock</h2>
+    <div class="header-actions">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search products..."
+      />
+      <button class="add-btn">Add Stock</button>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-wrapper">
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paracetamol</td>
+          <td>Medicine</td>
+          <td>120</td>
+          <td><span class="status active">Active</span></td>
+          <td>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Vitamin C</td>
+          <td>Supplement</td>
+          <td>15</td>
+          <td><span class="status low">Low</span></td>
+          <td>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Insulin</td>
+          <td>Medicine</td>
+          <td>0</td>
+          <td><span class="status out">Out of Stock</span></td>
+          <td>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

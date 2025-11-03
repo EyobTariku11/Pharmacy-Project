@@ -1,0 +1,61 @@
+<div class="manage-container">
+  <div class="manage-box">
+    <h2>Manage Organization Details</h2>
+    <form (ngSubmit)="onSubmit()">
+      <!-- Organization Name -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="orgName"
+          [(ngModel)]="organizationName"
+          name="organizationName"
+          placeholder=" "
+          required
+        />
+        <label for="orgName">Organization Name</label>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="address"
+          [(ngModel)]="address"
+          name="address"
+          placeholder=" "
+          required
+        />
+        <label for="address">Address</label>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="contact"
+          [(ngModel)]="contact"
+          name="contact"
+          placeholder=" "
+          required
+        />
+        <label for="contact">Contact Info</label>
+      </div>
+
+      <!-- License Number -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="license"
+          [(ngModel)]="license"
+          name="license"
+          placeholder=" "
+          required
+        />
+        <label for="license">License Number</label>
+        <a href="ownerhome" class="signup">owner home</a>
+      </div>
+
+      <button type="submit" class="submit-btn">Save Details</button>
+    </form>
+  </div>
+</div>
