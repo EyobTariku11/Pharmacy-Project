@@ -10,6 +10,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ManagestockComponent] // Import ManagestockComponent here
 })
 export class OwnerhomeComponent {
-  sidebarClosed = true;
+  sidebarClosed = false;
   activePage: string = 'dashboard';
 }

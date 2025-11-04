@@ -8,7 +8,7 @@
         class="search-input"
         placeholder="Search products..."
       />
-      <button class="add-btn">Add Stock</button>
+      <button class="add-btn" (click)="toggleForm()">Add Stock</button>
     </div>
   </div>
 
@@ -25,37 +25,88 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Paracetamol</td>
-          <td>Medicine</td>
-          <td>120</td>
-          <td><span class="status active">Active</span></td>
+        <tr *ngFor="let stock of stockList; let i = index">
+          <td>{{ stock.product }}</td>
+          <td>{{ stock.category }}</td>
+          <td>{{ stock.quantity }}</td>
           <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <span
+              class="status"
+              [ngClass]="{
+                active: stock.status === 'Active',
+                low: stock.status === 'Low',
+                out: stock.status === 'Out of Stock'
+              }"
+              >{{ stock.status }}</span
+            >
           </td>
-        </tr>
-        <tr>
-          <td>Vitamin C</td>
-          <td>Supplement</td>
-          <td>15</td>
-          <td><span class="status low">Low</span></td>
           <td>
             <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Insulin</td>
-          <td>Medicine</td>
-          <td>0</td>
-          <td><span class="status out">Out of Stock</span></td>
-          <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <button class="delete-btn" (click)="deleteStock(i)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Add Stock Modal Form -->
+  <div class="add-stock-form" *ngIf="showForm">
+    <div class="form-box">
+      <h3>Add New Stock</h3>
+
+      <form (ngSubmit)="addStock()">
+        <!-- Product -->
+        <div class="form-group">
+          <input
+            type="text"
+            id="product"
+            name="product"
+            [(ngModel)]="newStock.product"
+            placeholder=" "
+            required
+          />
+          <label for="product">Product Name</label>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="form-group">
+          <select
+            id="category"
+            name="category"
+            [(ngModel)]="newStock.category"
+            required
+            class="custom-select"
+          >
+            <option value="" disabled selected hidden>Select Category</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Supplement">Supplement</option>
+            <option value="Others">Others</option>
+          </select>
+          <label for="category">Category</label>
+        </div>
+        
+
+        <!-- Quantity -->
+        <div class="form-group">
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            [(ngModel)]="newStock.quantity"
+            placeholder=" "
+            required
+          />
+          <label for="quantity">Quantity</label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-buttons">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="button" class="cancel-btn" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
