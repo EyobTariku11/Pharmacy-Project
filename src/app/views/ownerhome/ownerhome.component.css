@@ -1,5 +1,5 @@
 /* ====== Layout ====== */
-.owner-home-container {
+.customer-home-container {
   display: flex;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
@@ -8,7 +8,7 @@
 
 /* ====== Sidebar ====== */
 .sidebar {
-  width: 250px; /* default width for desktop */
+  width: 250px; 
   height: 100vh;
   background-color: #1f8c4d;
   color: white;
@@ -144,7 +144,6 @@
   transition: all 0.3s ease;
 }
 
-/* Transform into X when sidebar is open */
 .menu-toggle.open span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -183,7 +182,6 @@
 
 /* ====== Responsive: Tablet & Mobile ====== */
 @media (max-width: 900px) {
-  /* Shrink sidebar width */
   .sidebar {
       width: 180px;
   }
@@ -203,7 +201,6 @@
       width: 25px;
   }
 
-  /* Adjust main content */
   .main-content {
       margin-left: 0;
   }
@@ -212,7 +209,6 @@
       margin-left: 180px;
   }
 
-  /* Show hamburger menu for mobile */
   .menu-toggle {
       display: flex;
   }

@@ -1,0 +1,216 @@
+/* ====== Layout ====== */
+.customer-home-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+  }
+  
+  /* ====== Sidebar ====== */
+  .sidebar {
+    width: 250px; 
+    height: 100vh;
+    background-color: #1f8c4d;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  /* ====== Sidebar Header ====== */
+  .sidebar-header {
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar-logo img {
+    width: 210px;
+    height: 130px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* ====== Navigation links ====== */
+  .nav-links {
+    list-style: none;
+    padding: 20px 10px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+  }
+  
+  .nav-links li {
+    width: 100%;
+  }
+  
+  .nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.03);
+  }
+  
+  .nav-links i {
+    font-size: 24px;
+    width: 30px;
+    text-align: center;
+  }
+  
+  .link-text {
+    display: inline-block;
+  }
+  
+  /* ====== Sidebar Footer ====== */
+  .sidebar-footer {
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 13px;
+    color: #cccccc;
+    background-color: transparent;
+    border-top: none;
+    opacity: 0.8;
+  }
+  
+  /* ====== Main Content ====== */
+  .main-content {
+    flex: 1;
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.shifted {
+    margin-left: 250px;
+  }
+  
+  .main-content:not(.shifted) {
+    margin-left: 0;
+  }
+  
+  /* ====== Topbar ====== */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ====== Menu Toggle ====== */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-toggle span {
+    display: block;
+    height: 3px;
+    background-color: #1f8c4d;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  
+  /* ====== Topbar Right ====== */
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+  }
+  
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .welcome-text {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* ====== Content Area ====== */
+  .content-area {
+    padding: 20px;
+  }
+  
+  /* ====== Responsive: Tablet & Mobile ====== */
+  @media (max-width: 900px) {
+    .sidebar {
+        width: 180px;
+    }
+  
+    .sidebar-logo img {
+        width: 150px;
+        height: 90px;
+    }
+  
+    .nav-links li a {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+  
+    .nav-links i {
+        font-size: 20px;
+        width: 25px;
+    }
+  
+    .main-content {
+        margin-left: 0;
+    }
+  
+    .main-content.shifted {
+        margin-left: 180px;
+    }
+  
+    .menu-toggle {
+        display: flex;
+    }
+  }
+  

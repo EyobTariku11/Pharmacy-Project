@@ -1,0 +1,143 @@
+.pharma-list-container {
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* ====== Header ====== */
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .header-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f8c4d;
+    margin-bottom: 10px;
+  }
+  
+  .search-input {
+    padding: 12px 18px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    outline: none;
+    width: 250px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #1f8c4d;
+    box-shadow: 0 0 10px rgba(31, 140, 77, 0.3);
+  }
+  
+  /* ====== Cards Grid ====== */
+  .cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  /* ====== Card ====== */
+  .pharma-card {
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(31, 140, 77, 0.15); /* light green shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .pharma-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(31, 140, 77, 0.25);
+  }
+  
+  /* ====== Card Image ====== */
+  .pharma-card-image {
+    width: 100%;
+    height: 140px; /* fixed height for consistent cards */
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0; /* fallback background if image fails */
+  }
+  
+  .pharma-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* crop/scale image to cover area */
+    object-position: center; /* center image */
+    transition: transform 0.3s ease;
+  }
+  
+  .pharma-card:hover .pharma-card-image img {
+    transform: scale(1.05);
+  }
+  
+  /* ====== Card Body ====== */
+  .pharma-card-body {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .pharma-card-body h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f8c4d;
+    margin-bottom: 8px;
+  }
+  
+  .pharma-card-body p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  /* ====== Card Footer ====== */
+  .pharma-card-footer {
+    padding: 15px 20px 25px 20px;
+    text-align: center;
+  }
+  
+  .btn-view {
+    background-color: #1f8c4d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-view:hover {
+    background-color: #176d3a;
+    transform: scale(1.05);
+  }
+  
+  /* ====== Responsive ====== */
+  @media (max-width: 1024px) {
+    .cards-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .cards-wrapper {
+      grid-template-columns: 1fr;
+    }
+  
+    .search-input {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  

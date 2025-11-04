@@ -1,0 +1,34 @@
+<div class="pharma-list-container">
+    <!-- Header -->
+    <div class="header-section">
+      <h2>Available Pharmacies</h2>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search pharmacies..."
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+  
+    <!-- Cards Grid -->
+    <div class="cards-wrapper">
+      <div class="pharma-card" *ngFor="let pharmacy of filteredPharmacies">
+        <!-- Card Image -->
+        <div class="pharma-card-image">
+          <img [src]="pharmacy.image" alt="{{ pharmacy.name }}" />
+        </div>
+  
+        <!-- Card Body -->
+        <div class="pharma-card-body">
+          <h3>{{ pharmacy.name }}</h3>
+          <p><strong>Phone:</strong> {{ pharmacy.contact }}</p>
+        </div>
+  
+        <!-- Card Footer -->
+        <div class="pharma-card-footer">
+          <button class="btn-view">Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
