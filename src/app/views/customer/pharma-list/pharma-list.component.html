@@ -1,34 +1,47 @@
 <div class="pharma-list-container">
-    <!-- Header -->
-    <div class="header-section">
-      <h2>Available Pharmacies</h2>
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Search pharmacies..."
-        [(ngModel)]="searchTerm"
-      />
-    </div>
-  
-    <!-- Cards Grid -->
-    <div class="cards-wrapper">
-      <div class="pharma-card" *ngFor="let pharmacy of filteredPharmacies">
-        <!-- Card Image -->
-        <div class="pharma-card-image">
-          <img [src]="pharmacy.image" alt="{{ pharmacy.name }}" />
-        </div>
-  
-        <!-- Card Body -->
-        <div class="pharma-card-body">
-          <h3>{{ pharmacy.name }}</h3>
-          <p><strong>Phone:</strong> {{ pharmacy.contact }}</p>
-        </div>
-  
-        <!-- Card Footer -->
-        <div class="pharma-card-footer">
-          <button class="btn-view">Call</button>
-        </div>
+  <!-- Header -->
+  <div class="header-section">
+    <h2>Available Pharmacies</h2>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search pharmacies..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="cards-wrapper">
+    <div class="pharma-card" *ngFor="let pharmacy of filteredPharmacies">
+      <!-- Card Image -->
+      <div class="pharma-card-image">
+        <img [src]="pharmacy.image" alt="{{ pharmacy.name }}" />
+      </div>
+
+      <!-- Card Body -->
+      <div class="pharma-card-body">
+        <h3>{{ pharmacy.name }}</h3>
+        <p><strong>Phone:</strong> {{ pharmacy.contact }}</p>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="pharma-card-footer">
+        <button class="btn-view" (click)="showDetails(pharmacy)">More Info</button>
       </div>
     </div>
   </div>
-  
+
+  <!-- Modal for Detailed Info -->
+  <div class="modal-overlay" *ngIf="selectedPharmacy">
+    <div class="modal-content">
+      <button class="modal-close" (click)="closeDetails()">×</button>
+      <div class="modal-image">
+        <img [src]="selectedPharmacy.image" alt="{{ selectedPharmacy.name }}" />
+      </div>
+      <h3>{{ selectedPharmacy.name }}</h3>
+      <p><strong>Phone:</strong> {{ selectedPharmacy.contact }}</p>
+      <p><strong>Address:</strong> {{ selectedPharmacy.address }}</p>
+      <p><strong>Hours:</strong> {{ selectedPharmacy.hours }}</p>
+    </div>
+  </div>
+</div>
