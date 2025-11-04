@@ -4,6 +4,7 @@ import { SignupComponent } from './auth/signup/signup.component'; // ✅ Import 
 import { ProductaddformComponent } from './auth/signup/productaddform/productaddform.component'; // ✅ Import Signup
 import { OwnerhomeComponent } from './views/ownerhome/ownerhome.component';
 import { ManagestockComponent } from './views/managestock/managestock.component';
+import { CustomerComponent } from './views/customer/customer.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'signup', pathMatch: 'full' }, // Default route
@@ -12,6 +13,8 @@ export const routes: Routes = [
   { path: 'manageproduct', component: ProductaddformComponent }, // Signup page
   { path: 'ownerhome', component: OwnerhomeComponent }, // Signup page
   { path: 'managestock', component: ManagestockComponent }, // Signup page
+  { path: 'customer',component:CustomerComponent},
+
 
   { path: '**', redirectTo: 'login', pathMatch: 'full' } // Wildcard fallback
 ];

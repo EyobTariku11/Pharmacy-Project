@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class ManagestockComponent {
   showForm = false;
+  searchTerm: string = ''; // For search input
 
   newStock = {
     product: '',
@@ -25,12 +26,12 @@ export class ManagestockComponent {
     { product: 'Insulin', category: 'Medicine', quantity: 0, status: 'Out of Stock' }
   ];
 
-  // ✅ Toggle Add Stock form
+  // Toggle Add Stock form
   toggleForm() {
     this.showForm = !this.showForm;
   }
 
-  // ✅ Add new stock item with SweetAlert2 validation
+  // Add new stock with SweetAlert2 validation
   addStock() {
     if (!this.newStock.product || !this.newStock.category || this.newStock.quantity === null) {
       Swal.fire({
@@ -42,12 +43,10 @@ export class ManagestockComponent {
       return;
     }
 
-    // Determine stock status based on quantity
     let status = 'Active';
     if (this.newStock.quantity === 0) status = 'Out of Stock';
     else if (this.newStock.quantity < 20) status = 'Low';
 
-    // Add new stock to the list
     this.stockList.push({
       product: this.newStock.product,
       category: this.newStock.category,
@@ -55,11 +54,9 @@ export class ManagestockComponent {
       status
     });
 
-    // Reset form and hide it
     this.newStock = { product: '', category: '', quantity: null };
     this.showForm = false;
 
-    // ✅ Success message
     Swal.fire({
       icon: 'success',
       title: 'Stock Added',
@@ -68,12 +65,12 @@ export class ManagestockComponent {
     });
   }
 
-  // ✅ Cancel Add Stock form
+  // Cancel Add Stock form
   cancel() {
     this.showForm = false;
   }
 
-  // ✅ Delete with SweetAlert2 confirmation
+  // Delete stock with SweetAlert2 confirmation
   deleteStock(index: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -95,5 +92,13 @@ export class ManagestockComponent {
         });
       }
     });
+  }
+
+  // Filter stock list based on search input
+  get filteredStock() {
+    return this.stockList.filter(stock => 
+      stock.product.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      stock.category.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

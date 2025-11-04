@@ -6,7 +6,8 @@
       <input
         type="text"
         class="search-input"
-        placeholder="Search products..."
+        placeholder="Search products or categories..."
+        [(ngModel)]="searchTerm"
       />
       <button class="add-btn" (click)="toggleForm()">Add Stock</button>
     </div>
@@ -25,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stock of stockList; let i = index">
+        <tr *ngFor="let stock of filteredStock; let i = index">
           <td>{{ stock.product }}</td>
           <td>{{ stock.category }}</td>
           <td>{{ stock.quantity }}</td>
@@ -75,16 +76,14 @@
             name="category"
             [(ngModel)]="newStock.category"
             required
-            class="custom-select"
           >
-            <option value="" disabled selected hidden>Select Category</option>
+            <option value="" disabled selected hidden> </option>
             <option value="Medicine">Medicine</option>
             <option value="Supplement">Supplement</option>
             <option value="Others">Others</option>
           </select>
           <label for="category">Category</label>
         </div>
-        
 
         <!-- Quantity -->
         <div class="form-group">

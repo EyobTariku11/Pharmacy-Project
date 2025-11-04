@@ -15,9 +15,27 @@ export class ProductaddformComponent {
   address: string = '';
   contact: string = '';
   license: string = '';
+  selectedImage: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
-  onSubmit() {
-    // Basic validation
+  // Handle image selection with proper typing
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    this.selectedImage = input.files[0];
+
+    // Preview image
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(this.selectedImage);
+  }
+
+  // Form submission
+  onSubmit(): void {
+    // Validation
     if (!this.organizationName.trim()) {
       Swal.fire('Error', 'Organization Name is required', 'error');
       return;
@@ -34,6 +52,10 @@ export class ProductaddformComponent {
       Swal.fire('Error', 'License Number is required', 'error');
       return;
     }
+    if (!this.selectedImage) {
+      Swal.fire('Error', 'Organization Image is required', 'error');
+      return;
+    }
 
     // All validations passed
     Swal.fire('Success', 'Details saved successfully!', 'success');
@@ -42,5 +64,6 @@ export class ProductaddformComponent {
     console.log('Address:', this.address);
     console.log('Contact Info:', this.contact);
     console.log('License Number:', this.license);
+    console.log('Selected Image:', this.selectedImage);
   }
 }
