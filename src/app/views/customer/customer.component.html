@@ -15,9 +15,9 @@
             </a>
         </li>
         <li>
-          <a (click)="activePage='orders'">
+          <a (click)="activePage='explore-medicine'">
             <i class="fas fa-shopping-cart"></i>
-            <span class="link-text">Orders</span>
+            <span class="link-text">Explore Medicine</span>
           </a>
         </li>
       </ul>
@@ -50,6 +50,10 @@
       <div class="content-area">
       <div *ngIf="activePage === 'customerlist'">
         <app-pharma-list></app-pharma-list>
+
+      </div>
+      <div *ngIf="activePage === 'explore-medicine'">
+        <app-explore-medicine></app-explore-medicine>
 
       </div>
     </div>
