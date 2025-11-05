@@ -1,23 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+interface SignupData {
+  fullName: string;
+  email: string;
+  password: string;
+  role?: string;
+}
+
+interface LoginData {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'http://localhost:5167/api/auth'; // Backend URL
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  // Simulated login function
-  login(email: string, password: string): boolean {
-    console.log('Logging in with:', email, password);
-    // For now, just return true for testing
-    return true;
+  // ===== SIGNUP =====
+  signup(data: SignupData): Observable<any> {
+    // Trim all inputs before sending
+    const payload = {
+      fullName: data.fullName.trim(),
+      email: data.email.trim().toLowerCase(),
+      password: data.password.trim(),
+      role: data.role
+    };
+    return this.http.post(`${this.apiUrl}/signup`, payload);
   }
 
-  // Simulated signup function
-  signup(name: string, email: string, password: string): boolean {
-    console.log('Signing up with:', name, email, password);
-    // For now, just return true for testing
-    return true;
+  // ===== LOGIN =====
+  login(data: LoginData): Observable<any> {
+    const payload = {
+      email: data.email.trim(),
+      password: data.password.trim()
+    };
+    return this.http.post(`${this.apiUrl}/login`, payload);
   }
+  
 }

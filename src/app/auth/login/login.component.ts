@@ -1,56 +1,56 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   email: string = '';
   password: string = '';
-
-  // Email regex for basic validation
   private emailPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  onLogin() {
-    // Check if fields are empty
-    if (!this.email || !this.password) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Missing Fields',
-        text: 'Please fill in both email and password!',
-        confirmButtonColor: '#d33'
-      });
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onLogin(): void {
+    if (!this.email.trim() || !this.password.trim()) {
+      Swal.fire({ icon: 'error', title: 'Missing Fields', text: 'Please fill in both email and password!', confirmButtonColor: '#d33' });
       return;
     }
 
-    // Validate email format
-    if (!this.emailPattern.test(this.email)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Invalid Email',
-        text: 'Please enter a valid email address!',
-        confirmButtonColor: '#d33'
-      });
+    if (!this.emailPattern.test(this.email.trim())) {
+      Swal.fire({ icon: 'error', title: 'Invalid Email', text: 'Please enter a valid email address!', confirmButtonColor: '#d33' });
       return;
     }
 
-    // If all validations pass
-    Swal.fire({
-      icon: 'success',
-      title: 'Login Successful',
-      text: `Welcome, ${this.email}!`,
-      confirmButtonColor: '#3085d6'
+    const credentials = { email: this.email.trim(), password: this.password.trim() };
+
+    this.authService.login(credentials).subscribe({
+      next: (res: any) => {
+        Swal.fire({ icon: 'success', title: 'Login Successful', text: `Welcome, ${res.fullName || this.email}!`, confirmButtonColor: '#3085d6' })
+          .then(() => {
+            localStorage.setItem('role', res.role);
+            localStorage.setItem('token', res.token);
+            this.router.navigate(['/dashboard']);
+          });
+      },
+      error: (err: any) => {
+        let msg = 'An unexpected error occurred during login.';
+        if (err.status === 401) msg = err.error?.message || 'Invalid email or password';
+        else if (err.status === 400) msg = err.error?.message || 'Bad request';
+        else if (err.error?.message) msg = err.error.message;
+
+        Swal.fire({ icon: 'error', title: 'Login Failed', text: msg, confirmButtonColor: '#d33' });
+        console.error('Login error details:', err);
+      }
     });
-
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-
-    // You can add backend login logic here later
   }
 }
