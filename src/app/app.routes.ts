@@ -8,9 +8,10 @@ import { CustomerComponent } from './views/customer/customer.component';
 import { PharmaListComponent } from './views/customer/pharma-list/pharma-list.component'; 
 import { AdminComponent } from './views/admin/admin.component'; 
 import { ExploreMedicineComponent } from './views/customer/explore-medicine/explore-medicine.component'; 
+import { LandingComponent } from './views/landing/landing.component'; 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'signup', pathMatch: 'full' }, // Default route
+  { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Default route
   { path: 'login', component: LoginComponent }, // Login page
   { path: 'signup', component: SignupComponent }, // Signup page
   { path: 'manageproduct', component: ProductaddformComponent }, // Signup page
@@ -20,7 +21,7 @@ export const routes: Routes = [
   { path: 'pharma-list',component:PharmaListComponent},
   { path: 'admin',component:AdminComponent},
   {path: 'explore-medicine',component:ExploreMedicineComponent},
-
+  {path: 'landing',component:LandingComponent},
 
   { path: '**', redirectTo: 'login', pathMatch: 'full' } // Wildcard fallback
 ];

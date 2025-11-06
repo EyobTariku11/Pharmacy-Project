@@ -1,0 +1,139 @@
+<div class="landing-container">
+    <!-- ===== Header Section ===== -->
+    <header class="header">
+      <div class="logo">
+        <h1>Pharmacy <span>Finder</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a href="/login" class="nav-btn login">Login</a>
+        <a href="/signup" class="nav-btn signup">Sign Up</a>
+      </nav>
+    </header>
+  
+    <!-- ===== Hero Section ===== -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h2>Your Smart Way to Find Pharmacies & Medicines 💊</h2>
+        <p>
+          Discover nearby pharmacies, compare medicine prices, and check
+          availability instantly. Pharmacy Finder connects customers and pharmacy
+          owners in one simple platform.
+        </p>
+        <div class="hero-buttons">
+          <a href="/login" class="btn-primary">Get Started</a>
+          <a (click)="scrollToSection('how-it-works')" class="btn-outline">How It Works</a>
+        </div>
+      </div>
+    </section>
+  
+    <!-- ===== About Us Section ===== -->
+    <section class="about" id="about">
+      <h2>About Us</h2>
+      <p>
+        Pharmacy Finder is a modern platform that helps customers find nearby pharmacies,
+        compare medicine prices, and check availability instantly. For pharmacy owners,
+        it provides tools to manage their stock, update pricing, and reach more customers efficiently.
+      </p>
+  
+      <div class="features">
+        <div class="feature-card">
+          <h3>💊 Easy Medicine Search</h3>
+          <p>Find the medicines you need in nearby pharmacies with real-time availability and pricing.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🏥 Pharmacy Management</h3>
+          <p>Owners can manage their pharmacy data, update inventory, and add new products effortlessly.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📍 Smart Location Finder</h3>
+          <p>Locate the best pharmacy options based on distance, cost, and customer ratings instantly.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- ===== How It Works Section ===== -->
+    <section id="how-it-works" class="how-it-works">
+      <h2>How It Works 🚀</h2>
+      <p class="subtitle">
+        Pharmacy Finder makes it simple for both customers and pharmacy owners.
+      </p>
+  
+      <div class="steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="emoji">🧍‍♂️</div>
+          <h3>1. Customer Signs Up</h3>
+          <p>
+            Customers create an account, then search for pharmacies nearby by
+            <b>location</b>, <b>price</b>, or <b>medicine name</b>.
+          </p>
+        </div>
+  
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="emoji">🏥</div>
+          <h3>2. Pharmacy Owners Register</h3>
+          <p>
+            Pharmacy owners sign up, add their pharmacy details, and manage their
+            <b>medicine stock</b> and <b>pricing</b>.
+          </p>
+        </div>
+  
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="emoji">💬</div>
+          <h3>3. Search & Compare</h3>
+          <p>
+            Customers explore pharmacies, compare prices, and find where their
+            medicines are <b>available instantly</b>.
+          </p>
+        </div>
+  
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="emoji">📦</div>
+          <h3>4. Manage Stock Easily</h3>
+          <p>
+            Owners can update available medicines, manage inventory, and keep
+            customers informed in real-time.
+          </p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- ===== Inquiry Section ===== -->
+    <section class="inquiry-section" id="inquiry">
+      <h2>Have Any Inquiries? 📩</h2>
+      <p class="subtitle">We’d love to hear from you! Fill out the form below and our team will get back to you soon.</p>
+  
+      <form class="inquiry-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Inquiry subject" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="Type your message..." required></textarea>
+        </div>
+  
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </section>
+  
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <p>© 2025 Pharmacy Finder. All rights reserved.</p>
+    </footer>
+  </div>
+  

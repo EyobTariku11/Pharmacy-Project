@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule], /* app module */
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -18,7 +18,7 @@ export class LoginComponent {
   password: string = '';
   private emailPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {} /* send to backend &route */
 
   onLogin(): void {
     if (!this.email.trim() || !this.password.trim()) {
@@ -31,9 +31,9 @@ export class LoginComponent {
       return;
     }
 
-    const credentials = { email: this.email.trim(), password: this.password.trim() };
+    const credentials = { email: this.email.trim(), password: this.password.trim() }; /* object to send */
 
-    this.authService.login(credentials).subscribe({
+    this.authService.login(credentials).subscribe({ /* sends https and wait response */
       next: (res: any) => {
         Swal.fire({ icon: 'success', title: 'Login Successful', text: `Welcome, ${res.fullName || this.email}!`, confirmButtonColor: '#3085d6' })
           .then(() => {

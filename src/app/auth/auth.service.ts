@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'; /* make service availalbe throughtout */
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+/* da struc */
 interface SignupData {
   fullName: string;
   email: string;
@@ -20,7 +20,7 @@ interface LoginData {
 export class AuthService {
   private apiUrl = 'http://localhost:5167/api/auth'; // Backend URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {} /* allow http request */
 
   // ===== SIGNUP =====
   signup(data: SignupData): Observable<any> {
@@ -31,7 +31,7 @@ export class AuthService {
       password: data.password.trim(),
       role: data.role
     };
-    return this.http.post(`${this.apiUrl}/signup`, payload);
+    return this.http.post(`${this.apiUrl}/signup`, payload); /* send request */
   }
 
   // ===== LOGIN =====
