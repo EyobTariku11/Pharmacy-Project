@@ -12,4 +12,10 @@ import { CommonModule } from '@angular/common';
 export class OwnerhomeComponent {
   sidebarClosed = false;
   activePage: string = 'dashboard';
+  userFullName: string = 'Guest';
+
+  ngOnInit(): void {
+    // Get the logged-in user's full name from localStorage
+    this.userFullName = localStorage.getItem('fullName') || 'Guest';
+  }
 }

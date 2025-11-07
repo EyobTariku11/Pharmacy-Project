@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { PharmacyService } from '../../../services/pharmacy.service';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-productaddform',
@@ -11,59 +13,44 @@ import Swal from 'sweetalert2';
   imports: [CommonModule, FormsModule]
 })
 export class ProductaddformComponent {
-  organizationName: string = '';
+  pharmacyName: string = '';
   address: string = '';
   contact: string = '';
   license: string = '';
-  selectedImage: File | null = null;
-  imagePreview: string | ArrayBuffer | null = null;
+  email: string = '';
+  description: string = '';
 
-  // Handle image selection with proper typing
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length) return;
+  constructor(
+    private pharmacyService: PharmacyService,
+    private router: Router // Inject Router
+  ) {}
 
-    this.selectedImage = input.files[0];
-
-    // Preview image
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
-    reader.readAsDataURL(this.selectedImage);
-  }
-
-  // Form submission
   onSubmit(): void {
-    // Validation
-    if (!this.organizationName.trim()) {
-      Swal.fire('Error', 'Organization Name is required', 'error');
-      return;
-    }
-    if (!this.address.trim()) {
-      Swal.fire('Error', 'Address is required', 'error');
-      return;
-    }
-    if (!this.contact.trim()) {
-      Swal.fire('Error', 'Contact Info is required', 'error');
-      return;
-    }
-    if (!this.license.trim()) {
-      Swal.fire('Error', 'License Number is required', 'error');
-      return;
-    }
-    if (!this.selectedImage) {
-      Swal.fire('Error', 'Organization Image is required', 'error');
+    if (!this.pharmacyName || !this.address || !this.contact || !this.license || !this.email) {
+      Swal.fire('Error', 'All fields are required', 'error');
       return;
     }
 
-    // All validations passed
-    Swal.fire('Success', 'Details saved successfully!', 'success');
+    const data = {
+      PharmacyName: this.pharmacyName,
+      Address: this.address,
+      PhoneNumber: this.contact,
+      LicenseNumber: this.license,
+      Email: this.email,
+      Description: this.description
+    };
 
-    console.log('Organization Name:', this.organizationName);
-    console.log('Address:', this.address);
-    console.log('Contact Info:', this.contact);
-    console.log('License Number:', this.license);
-    console.log('Selected Image:', this.selectedImage);
+    this.pharmacyService.addPharmacy(data).subscribe({
+      next: (res) => {
+        Swal.fire('Success', 'Details saved successfully!', 'success').then(() => {
+          // Navigate to owner page after success
+          this.router.navigate(['/ownerhome']); 
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        Swal.fire('Error', 'Failed to save details', 'error');
+      }
+    });
   }
 }

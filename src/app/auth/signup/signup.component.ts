@@ -81,10 +81,16 @@ export class SignupComponent {
           title: 'Signup Successful',
           text: `Welcome, ${res.fullName || this.fullName}!`,
           confirmButtonColor: '#3085d6'
-        }).then(() => this.router.navigate(['/login']));
+        }).then(() => {
+          // ===== NAVIGATION BASED ON ROLE =====
+          if (user.role.toLowerCase() === 'pharmacyowner') {
+            this.router.navigate(['/manageproduct']); // or your pharmacy owner details page
+          } else {
+            this.router.navigate(['/login']); // customers go to login
+          }
+        });
       },
       error: (err: any) => {
-        // Show the **exact backend error message** (not generic)
         const errorMessage =
           err?.error?.message ||
           err?.error ||
