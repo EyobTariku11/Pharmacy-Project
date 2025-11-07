@@ -2,6 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { StockService, AddStockDto } from '../../services/stock.service';
+
+interface Stock {
+  product: string;
+  category: string;
+  quantity: number | null;
+  status: string;
+}
 
 @Component({
   selector: 'app-managestock',
@@ -12,26 +20,21 @@ import Swal from 'sweetalert2';
 })
 export class ManagestockComponent {
   showForm = false;
-  searchTerm: string = ''; // For search input
+  searchTerm: string = '';
 
-  newStock = {
-    product: '',
-    category: '',
-    quantity: null
-  };
+  newStock: Stock = { product: '', category: '', quantity: null, status: 'Active' };
 
-  stockList = [
-    { product: 'Paracetamol', category: 'Medicine', quantity: 120, status: 'Active' },
-    { product: 'Vitamin C', category: 'Supplement', quantity: 15, status: 'Low' },
-    { product: 'Insulin', category: 'Medicine', quantity: 0, status: 'Out of Stock' }
-  ];
+  stockList: Stock[] = [];
 
-  // Toggle Add Stock form
+  // Simulate logged-in user ID
+  userId = 1;
+
+  constructor(private stockService: StockService) { }
+
   toggleForm() {
     this.showForm = !this.showForm;
   }
 
-  // Add new stock with SweetAlert2 validation
   addStock() {
     if (!this.newStock.product || !this.newStock.category || this.newStock.quantity === null) {
       Swal.fire({
@@ -43,34 +46,47 @@ export class ManagestockComponent {
       return;
     }
 
-    let status = 'Active';
-    if (this.newStock.quantity === 0) status = 'Out of Stock';
-    else if (this.newStock.quantity < 20) status = 'Low';
+    if (this.newStock.quantity === 0) this.newStock.status = 'Out of Stock';
+    else if (this.newStock.quantity < 20) this.newStock.status = 'Low';
+    else this.newStock.status = 'Active';
 
-    this.stockList.push({
+    const dto: AddStockDto = {
       product: this.newStock.product,
       category: this.newStock.category,
-      quantity: this.newStock.quantity,
-      status
-    });
+      quantity: this.newStock.quantity!,
+      userId: this.userId
+    };
 
-    this.newStock = { product: '', category: '', quantity: null };
-    this.showForm = false;
+    this.stockService.addStock(dto).subscribe({
+      next: (res) => {
+        this.stockList.push({ ...this.newStock });
+        this.newStock = { product: '', category: '', quantity: null, status: 'Active' };
+        this.showForm = false;
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Stock Added',
-      text: 'New stock has been successfully added!',
-      confirmButtonColor: '#1f8c4d'
+        Swal.fire({
+          icon: 'success',
+          title: 'Stock Added',
+          text: 'New stock has been successfully added!',
+          confirmButtonColor: '#1f8c4d'
+        });
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add stock. Please try again.',
+          confirmButtonColor: '#d33'
+        });
+        console.error(err);
+      }
     });
   }
 
-  // Cancel Add Stock form
   cancel() {
     this.showForm = false;
+    this.newStock = { product: '', category: '', quantity: null, status: 'Active' };
   }
 
-  // Delete stock with SweetAlert2 confirmation
   deleteStock(index: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -81,7 +97,7 @@ export class ManagestockComponent {
       cancelButtonColor: '#1f8c4d',
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel'
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
         this.stockList.splice(index, 1);
         Swal.fire({
@@ -94,9 +110,8 @@ export class ManagestockComponent {
     });
   }
 
-  // Filter stock list based on search input
   get filteredStock() {
-    return this.stockList.filter(stock => 
+    return this.stockList.filter(stock =>
       stock.product.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       stock.category.toLowerCase().includes(this.searchTerm.toLowerCase())
     );

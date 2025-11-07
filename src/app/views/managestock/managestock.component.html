@@ -31,15 +31,11 @@
           <td>{{ stock.category }}</td>
           <td>{{ stock.quantity }}</td>
           <td>
-            <span
-              class="status"
-              [ngClass]="{
-                active: stock.status === 'Active',
-                low: stock.status === 'Low',
-                out: stock.status === 'Out of Stock'
-              }"
-              >{{ stock.status }}</span
-            >
+            <span class="status" [ngClass]="{
+              active: stock.status === 'Active',
+              low: stock.status === 'Low',
+              out: stock.status === 'Out of Stock'
+            }">{{ stock.status }}</span>
           </td>
           <td>
             <button class="edit-btn">Edit</button>
@@ -58,25 +54,13 @@
       <form (ngSubmit)="addStock()">
         <!-- Product -->
         <div class="form-group">
-          <input
-            type="text"
-            id="product"
-            name="product"
-            [(ngModel)]="newStock.product"
-            placeholder=" "
-            required
-          />
+          <input type="text" id="product" name="product" [(ngModel)]="newStock.product" placeholder=" " required/>
           <label for="product">Product Name</label>
         </div>
 
-        <!-- Category Dropdown -->
+        <!-- Category -->
         <div class="form-group">
-          <select
-            id="category"
-            name="category"
-            [(ngModel)]="newStock.category"
-            required
-          >
+          <select id="category" name="category" [(ngModel)]="newStock.category" required>
             <option value="" disabled selected hidden> </option>
             <option value="Medicine">Medicine</option>
             <option value="Supplement">Supplement</option>
@@ -87,23 +71,14 @@
 
         <!-- Quantity -->
         <div class="form-group">
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            [(ngModel)]="newStock.quantity"
-            placeholder=" "
-            required
-          />
+          <input type="number" id="quantity" name="quantity" [(ngModel)]="newStock.quantity" placeholder=" " required/>
           <label for="quantity">Quantity</label>
         </div>
 
         <!-- Buttons -->
         <div class="form-buttons">
           <button type="submit" class="save-btn">Save</button>
-          <button type="button" class="cancel-btn" (click)="cancel()">
-            Cancel
-          </button>
+          <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
         </div>
       </form>
     </div>

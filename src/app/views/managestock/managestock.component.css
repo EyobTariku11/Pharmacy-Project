@@ -194,14 +194,14 @@
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 12px 10px;
+  padding: 12px 15px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 15px;
   outline: none;
-  background: none;
+  background: #fff;
   appearance: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
@@ -232,15 +232,17 @@
   color: #1f8c4d;
 }
 
-/* ====== Dropdown Styling ====== */
+/* ====== Modern Dropdown Styling ====== */
 .form-group select {
   cursor: pointer;
-  background: none;
+  background: #fff url("data:image/svg+xml,%3Csvg fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 12px center;
+  background-size: 16px 16px;
 }
 
 .form-group select option {
   color: #333;
-  background: #fff;
+  background-color: #fff;
+  padding: 10px;
 }
 
 /* ====== Form Buttons ====== */
@@ -313,7 +315,7 @@
   }
 
   .table-wrapper {
-    overflow-x: auto; /* Enable horizontal scroll on small screens */
+    overflow-x: auto;
   }
 
   .stock-table th,
@@ -325,11 +327,6 @@
   .form-box {
     width: 90%;
     padding: 30px;
-  }
-
-  /* Sidebar hidden in mobile/tablet view */
-  body.sidebar-open .sidebar {
-    display: none;
   }
 }
 
@@ -355,5 +352,4 @@
   .stock-table td {
     font-size: 12px;
   }
-  
 }
