@@ -20,14 +20,14 @@ export interface AuthResponse {
   fullName: string;
   role: string;
   token: string;
-  email?: string; // optional, to store user email
+  email?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // ✅ Update to your running backend URL
+ 
   private apiUrl = 'http://localhost:5170/api/auth';
 
   constructor(private http: HttpClient) {}

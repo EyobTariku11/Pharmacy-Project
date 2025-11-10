@@ -82,7 +82,7 @@ export class SignupComponent {
           text: `Welcome, ${res.fullName || this.fullName}!`,
           confirmButtonColor: '#3085d6'
         }).then(() => {
-          // ===== NAVIGATION BASED ON ROLE =====
+        
           if (user.role.toLowerCase() === 'pharmacyowner') {
             this.router.navigate(['/manageproduct']); // or your pharmacy owner details page
           } else {
