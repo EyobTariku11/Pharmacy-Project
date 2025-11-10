@@ -8,12 +8,19 @@ export interface StockDto {
   product: string;
   category: string;
   quantity: number;
+  price: number;
 }
 
-// Response from backend
-export interface StockResponse {
-  message: string;
-  stock?: any;
+// Stock entity from database
+export interface Stock {
+  id: number;
+  product: string;
+  category: string;
+  quantity: number;
+  price: number;
+  userId: number;
+  userName: string;
+  createdAt: string;
 }
 
 @Injectable({
@@ -24,7 +31,7 @@ export class StockService {
 
   constructor(private http: HttpClient) {}
 
-  // Add Authorization header for requests
+  // Auth headers for logged-in requests
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') || '';
     return new HttpHeaders({
@@ -33,12 +40,11 @@ export class StockService {
     });
   }
 
-  // Add stock
-  addStock(stock: StockDto): Observable<StockResponse> {
-    return this.http
-      .post<StockResponse>(`${this.apiUrl}/add`, stock, { headers: this.getAuthHeaders() })
+  // Add stock (for logged-in user)
+  addStock(stock: StockDto): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add`, stock, { headers: this.getAuthHeaders() })
       .pipe(
-        catchError((err) => {
+        catchError(err => {
           console.error('Add stock error:', err);
           let message = 'Failed to add stock';
           if (err.error?.message) message = err.error.message;
@@ -48,12 +54,11 @@ export class StockService {
       );
   }
 
-  // Get all stocks for logged-in user
-  getAllStocks(): Observable<any[]> {
-    return this.http
-      .get<any[]>(`${this.apiUrl}`, { headers: this.getAuthHeaders() })
+  // Get all stocks (public, all users)
+  getAllStocksPublic(): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${this.apiUrl}/all`)
       .pipe(
-        catchError((err) => {
+        catchError(err => {
           console.error('Load stocks error:', err);
           let message = 'Failed to load stocks';
           if (err.error?.message) message = err.error.message;
@@ -63,11 +68,18 @@ export class StockService {
       );
   }
 
-  deleteStock(id: number) {
-    return this.http.delete(`${this.apiUrl}/delete/${id}`, {
-      headers: this.getAuthHeaders()
-    });
+  // Get stocks for logged-in user
+  getMyStocks(): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${this.apiUrl}`, { headers: this.getAuthHeaders() })
+      .pipe(
+        catchError(err => {
+          console.error('Load my stocks error:', err);
+          return throwError(() => new Error('Failed to load user stocks'));
+        })
+      );
   }
-  
-  
+
+  deleteStock(id: number) {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`, { headers: this.getAuthHeaders() });
+  }
 }

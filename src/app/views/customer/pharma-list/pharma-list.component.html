@@ -13,18 +13,12 @@
   <!-- Cards Grid -->
   <div class="cards-wrapper">
     <div class="pharma-card" *ngFor="let pharmacy of filteredPharmacies">
-      <!-- Card Image -->
-      <div class="pharma-card-image">
-        <img [src]="pharmacy.image" alt="{{ pharmacy.name }}" />
-      </div>
-
-      <!-- Card Body -->
       <div class="pharma-card-body">
-        <h3>{{ pharmacy.name }}</h3>
-        <p><strong>Phone:</strong> {{ pharmacy.contact }}</p>
+        <h3>{{ pharmacy.pharmacyName }}</h3>
+        <p><strong>Phone:</strong> {{ pharmacy.phoneNumber }}</p>
+        <p><strong>Address:</strong> {{ pharmacy.address }}</p>
       </div>
 
-      <!-- Card Footer -->
       <div class="pharma-card-footer">
         <button class="btn-view" (click)="showDetails(pharmacy)">More Info</button>
       </div>
@@ -35,13 +29,11 @@
   <div class="modal-overlay" *ngIf="selectedPharmacy">
     <div class="modal-content">
       <button class="modal-close" (click)="closeDetails()">×</button>
-      <div class="modal-image">
-        <img [src]="selectedPharmacy.image" alt="{{ selectedPharmacy.name }}" />
-      </div>
-      <h3>{{ selectedPharmacy.name }}</h3>
-      <p><strong>Phone:</strong> {{ selectedPharmacy.contact }}</p>
+      <h3>{{ selectedPharmacy.pharmacyName }}</h3>
+      <p><strong>Phone:</strong> {{ selectedPharmacy.phoneNumber }}</p>
       <p><strong>Address:</strong> {{ selectedPharmacy.address }}</p>
-      <p><strong>Hours:</strong> {{ selectedPharmacy.hours }}</p>
+      <p *ngIf="selectedPharmacy.email"><strong>Email:</strong> {{ selectedPharmacy.email }}</p>
+      <p *ngIf="selectedPharmacy.description"><strong>Description:</strong> {{ selectedPharmacy.description }}</p>
     </div>
   </div>
 </div>

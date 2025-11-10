@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // For ngModel
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PharmacyService } from '../../../services/pharmacy.service';
 
 interface Pharmacy {
-  name: string;
-  contact: string;
+  id: number;
+  pharmacyName: string;
   address: string;
-  hours: string;
-  image: string;
+  phoneNumber: string;
+  email?: string;
+  description?: string;
 }
 
 @Component({
@@ -17,19 +19,32 @@ interface Pharmacy {
   standalone: true,
   imports: [CommonModule, FormsModule]
 })
-export class PharmaListComponent {
+export class PharmaListComponent implements OnInit {
   searchTerm: string = '';
   selectedPharmacy: Pharmacy | null = null;
+  pharmacies: Pharmacy[] = [];
 
-  pharmacies: Pharmacy[] = [
-    { name: 'Green Pharmacy', address: '123 Main St', hours: '8AM-8PM', contact: '+251911123456', image: 'assets/images/pharma1.jpg' },
-    { name: 'Health Plus', address: '456 Second Ave', hours: '9AM-7PM', contact: '+251911654321', image: 'assets/images/pharma2.jpg' },
-    { name: 'Wellness Pharmacy', address: '789 Third Blvd', hours: '7AM-9PM', contact: '+251911987654', image: 'assets/images/logo.png' },
-  ];
+  constructor(private pharmacyService: PharmacyService) {}
+
+  ngOnInit(): void {
+    this.loadPharmacies();
+  }
+
+  loadPharmacies() {
+    this.pharmacyService.getAllPharmacies().subscribe({
+      next: (res: Pharmacy[]) => {
+        this.pharmacies = res;
+      },
+      error: (err) => {
+        console.error('Failed to load pharmacies:', err);
+      }
+    });
+  }
 
   get filteredPharmacies() {
+    const term = this.searchTerm.toLowerCase();
     return this.pharmacies.filter(p =>
-      p.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      p.pharmacyName.toLowerCase().includes(term)
     );
   }
 

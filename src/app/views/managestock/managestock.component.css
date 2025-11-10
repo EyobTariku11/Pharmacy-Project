@@ -342,6 +342,43 @@
   border-radius: 4px;
   font-size: 0.85rem;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+/* All buttons look like the Add Stock green button */
+.pagination button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #28a745; /* Green */
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #1e7e34; /* darker green on hover */
+  transform: translateY(-2px);
+}
+
+/* Disabled buttons */
+.pagination button:disabled {
+  background-color: #a8a8a8;
+  cursor: not-allowed;
+}
+
+/* Only the ACTIVE PAGE NUMBER changes color (not the button) */
+.pagination button.active {
+  color: #ff9800; /* orange text for active page */
+  font-weight: bold;
+}
+
 
 /* ====== Animation ====== */
 @keyframes fadeIn {

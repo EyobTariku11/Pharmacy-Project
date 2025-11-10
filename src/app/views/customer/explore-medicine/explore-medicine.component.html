@@ -1,89 +1,70 @@
 <div class="medicine-list-container">
-    <!-- Header -->
-    <div class="header-section">
-      <h2>Explore Medicines</h2>
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Search medicines..."
-        [(ngModel)]="searchTerm"
-        (input)="filterMedicines()"
-      />
+  <!-- Header -->
+  <div class="header-section">
+    <h2>Explore Medicines</h2>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search medicines..."
+      [(ngModel)]="searchTerm"
+      (input)="filterMedicines()"
+    />
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label>Category:</label>
+      <select [(ngModel)]="selectedCategory" (change)="filterMedicines()">
+        <option value="">All</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
     </div>
-  
-    <!-- Filters -->
-    <div class="filter-section">
-      <div class="filter-group">
-        <label>Category:</label>
-        <select [(ngModel)]="selectedCategory" (change)="filterMedicines()">
-          <option value="">All</option>
-          <option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="filter-group">
-        <label>Min Price:</label>
-        <input
-          type="number"
-          [(ngModel)]="minPrice"
-          (input)="filterMedicines()"
-          placeholder="0"
-        />
-      </div>
-  
-      <div class="filter-group">
-        <label>Max Price:</label>
-        <input
-          type="number"
-          [(ngModel)]="maxPrice"
-          (input)="filterMedicines()"
-          placeholder="500"
-        />
-      </div>
+
+    <div class="filter-group">
+      <label>Min Price:</label>
+      <input type="number" [(ngModel)]="minPrice" (input)="filterMedicines()" placeholder="0"/>
     </div>
-  
-    <!-- Medicine Cards -->
-    <div class="cards-wrapper">
-      <div class="medicine-card" *ngFor="let med of filteredMedicines">
-        <div class="medicine-card-image">
-          <img [src]="med.image" alt="{{ med.name }}" />
-        </div>
-  
-        <div class="medicine-card-body">
-          <h3>{{ med.name }}</h3>
-          <p><strong>Category:</strong> {{ med.category }}</p>
-          <p><strong>Pharmacy:</strong> {{ med.pharmacy }}</p>
-          <p><strong>Location:</strong> {{ med.location }}</p>
-          <p><strong>Price:</strong> ${{ med.price }}</p>
-        </div>
-  
-        <div class="medicine-card-footer">
-          <button class="btn-view" (click)="showDetails(med)">More Info</button>
-        </div>
-      </div>
+
+    <div class="filter-group">
+      <label>Max Price:</label>
+      <input type="number" [(ngModel)]="maxPrice" (input)="filterMedicines()" placeholder="500"/>
     </div>
-  
-    <!-- Modal -->
-    <div class="modal-overlay" *ngIf="selectedMedicine">
-      <div class="modal-content">
-        <button class="modal-close" (click)="closeDetails()">×</button>
-  
-        <div class="modal-image">
-          <img [src]="selectedMedicine.image" alt="{{ selectedMedicine.name }}" />
-        </div>
-  
-        <h3>{{ selectedMedicine.name }}</h3>
-        <p><strong>Category:</strong> {{ selectedMedicine.category }}</p>
-        <p><strong>Pharmacy:</strong> {{ selectedMedicine.pharmacy }}</p>
-        <p><strong>Location:</strong> {{ selectedMedicine.location }}</p>
-        <p><strong>Price:</strong> ${{ selectedMedicine.price }}</p>
-        <p><strong>Description:</strong> {{ selectedMedicine.description }}</p>
-        <p><strong>Contact:</strong> {{ selectedMedicine.contact }}</p>
-  
-        <button class="btn-view" (click)="closeDetails()">Close</button>
+  </div>
+
+  <!-- Medicine Cards -->
+  <div class="cards-wrapper">
+    <div class="medicine-card" *ngFor="let med of filteredMedicines">
+      <div class="medicine-card-body">
+        <h3>{{ med.product }}</h3>
+        <p><strong>Category:</strong> {{ med.category }}</p>
+        <p><strong>Pharmacy:</strong> {{ med.userName }}</p>
+        <p><strong>Quantity:</strong> {{ med.quantity }}</p>
+        <p><strong>Price:</strong> ${{ med.price }}</p>
+        <p><strong>Added On:</strong> {{ med.createdAt | date:'short' }}</p>
+      </div>
+
+      <div class="medicine-card-footer">
+        <button class="btn-view" (click)="showDetails(med)">More Info</button>
       </div>
     </div>
   </div>
-  
+
+  <!-- Modal -->
+  <div class="modal-overlay" *ngIf="selectedMedicine">
+    <div class="modal-content">
+      <button class="modal-close" (click)="closeDetails()">×</button>
+
+      <h3>{{ selectedMedicine.product }}</h3>
+      <p><strong>Category:</strong> {{ selectedMedicine.category }}</p>
+      <p><strong>Pharmacy:</strong> {{ selectedMedicine.userName }}</p>
+      <p><strong>Quantity:</strong> {{ selectedMedicine.quantity }}</p>
+      <p><strong>Price:</strong> ${{ selectedMedicine.price }}</p>
+      <p><strong>Added On:</strong> {{ selectedMedicine.createdAt | date:'short' }}</p>
+
+      <button class="btn-view" (click)="closeDetails()">Close</button>
+    </div>
+  </div>
+</div>
