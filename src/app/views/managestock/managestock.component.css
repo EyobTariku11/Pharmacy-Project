@@ -378,6 +378,25 @@
   color: #ff9800; /* orange text for active page */
   font-weight: bold;
 }
+/* ===== Add Custom Category Button ===== */
+.add-category-btn {
+  margin-top: 8px;
+  background-color: #1f8c4d; /* Same green as Save button */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.add-category-btn:hover {
+  background-color: #15703c; /* Darker green on hover */
+  transform: scale(1.03);
+}
 
 
 /* ====== Animation ====== */

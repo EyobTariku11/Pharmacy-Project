@@ -1,65 +1,66 @@
 <div class="owner-home-container">
-    <!-- Sidebar -->
-    <nav class="sidebar" [class.closed]="sidebarClosed">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <img src="assets/images/logo.png" alt="Logo" />
-        </div>
+  <!-- Sidebar -->
+  <nav class="sidebar" [class.closed]="sidebarClosed">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <img src="assets/images/logo.png" alt="Logo" />
       </div>
-  
-      <ul class="nav-links">
-        <li>
-            <a (click)="activePage='managestock'">
-              <i class="fas fa-boxes"></i>
-              <span class="link-text">Manage Stock</span>
-            </a>
-          </li>
-          
-        <li>
-          <a href="#">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="link-text">Orders</span>
-          </a>
-        </li>
-      </ul>
-  
-      <!-- Sidebar Footer -->
-      <div class="sidebar-footer">
-        <p>All rights reserved &#64; Daf Tech 2025</p>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a (click)="navigateTo('managestock')">
+          <i class="fas fa-boxes"></i>
+          <span class="link-text">Manage Stock</span>
+        </a>
+      </li>
+      <li>
+        <a (click)="navigateTo('addpharma')">
+          <i class="fas fa-plus-square"></i>
+          <span class="link-text">Add Pharmacies</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <p>All rights reserved &#64; Daf Tech 2025</p>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="main-content" [class.shifted]="!sidebarClosed">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div
+        class="menu-toggle"
+        [class.open]="!sidebarClosed"
+        (click)="sidebarClosed = !sidebarClosed"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </nav>
-  
-    <!-- Main content -->
-    <div class="main-content" [class.shifted]="!sidebarClosed">
-      <!-- Top bar -->
-      <header class="topbar">
-        <div
-          class="menu-toggle"
-          [class.open]="!sidebarClosed"
-          (click)="sidebarClosed = !sidebarClosed"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="topbar-right">
-          <!-- Display logged-in user's name -->
-          <span class="welcome-text">Welcome, {{ userFullName }}</span>
-        </div>
-      </header>
-  
-      <!-- Content area -->
-      <div class="content-area">
-        <div *ngIf="activePage === 'dashboard'">
-          <app-managestock></app-managestock>
-        </div>
-      
-        <div *ngIf="activePage === 'managestock'">
-          <app-managestock></app-managestock>
-        </div>
+      <div class="topbar-right">
+        <!-- Display logged-in user's name -->
+        <span class="welcome-text">Welcome, {{ userFullName }}</span>
+        
+        <!-- Logout button -->
+        <button class="logout-btn" (click)="logout()" title="Logout">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
       </div>
-      
-      
+    </header>
+
+    <!-- Content area -->
+    <div class="content-area">
+      <div *ngIf="activePage === 'addpharma'">
+        <app-productaddform></app-productaddform>
+      </div>
+
+      <div *ngIf="activePage === 'managestock'">
+        <app-managestock></app-managestock>
+      </div>
     </div>
   </div>
-  
+</div>

@@ -116,7 +116,29 @@
     background-color: white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between name and logout */
+  }
   
+  .welcome-text {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .logout-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ff4d4f;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  
+  .logout-btn:hover {
+    color: #ff1a1a;
+  }
   /* Menu Toggle */
   .menu-toggle {
     display: flex;

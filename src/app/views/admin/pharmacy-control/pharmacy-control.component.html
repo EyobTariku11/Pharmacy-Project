@@ -1,0 +1,59 @@
+<div class="manage-pharmacy-container">
+    <!-- Header -->
+    <div class="header-section">
+      <h2>Registered Pharmacies</h2>
+      <div class="header-actions">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search pharmacies..."
+          [(ngModel)]="searchTerm"
+        />
+        <!-- Add Pharmacy button removed -->
+      </div>
+    </div>
+  
+    <!-- Table Section -->
+    <div class="table-wrapper">
+      <table class="pharmacy-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>License Number</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pharmacy of filteredPharmacies">
+            <td>{{ pharmacy.pharmacyName }}</td>
+            <td>{{ pharmacy.licenseNumber }}</td>
+            <td>{{ pharmacy.address }}</td>
+            <td>{{ pharmacy.phoneNumber }}</td>
+            <td>{{ pharmacy.email }}</td>
+            <td>
+              <button class="revoke-btn" (click)="removePharmacy(pharmacy)">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <button
+        *ngFor="let page of totalPagesArray"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+      >
+        {{ page }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+  

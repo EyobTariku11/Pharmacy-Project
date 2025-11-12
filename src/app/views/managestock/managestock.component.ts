@@ -5,11 +5,11 @@ import Swal from 'sweetalert2';
 import { StockService, StockDto } from '../../services/stock.service';
 
 interface Stock {
-  id?: number; 
+  id?: number;
   product: string;
   category: string;
   quantity: number | null;
-  price: number | null,
+  price: number | null;
   createdAt?: string;
 }
 
@@ -23,22 +23,77 @@ interface Stock {
 export class ManagestockComponent {
   showForm = false;
   searchTerm: string = '';
-  newStock: Stock = { product: '', category: '', quantity: null, price:null};
+  newStock: Stock = { product: '', category: '', quantity: null, price: null };
   stockList: Stock[] = [];
 
-  // ✅ Pagination variables
+  // Pagination
   currentPage = 1;
   pageSize = 10;
   paginatedStock: Stock[] = [];
   totalPages = 0;
   totalPagesArray: number[] = [];
 
+  // Category management
+  categories: string[] = ['Medicine', 'Supplement', 'Others'];
+  addingNewCategory = false;
+  customCategory: string = '';
+
+  // Edit mode
+  isEditMode = false;
+  editingStockId?: number;
+
   constructor(private stockService: StockService) {
     this.loadStocks();
   }
 
-  toggleForm() {
-    this.showForm = !this.showForm;
+  toggleForm(stock?: Stock) {
+    if (stock) {
+      // Edit mode
+      this.isEditMode = true;
+      this.editingStockId = stock.id;
+      this.newStock = { ...stock };
+
+      this.addingNewCategory = !this.categories.includes(stock.category);
+      if (this.addingNewCategory) this.customCategory = stock.category;
+    } else {
+      // Add mode
+      this.isEditMode = false;
+      this.editingStockId = undefined;
+      this.newStock = { product: '', category: '', quantity: null, price: null };
+      this.addingNewCategory = false;
+      this.customCategory = '';
+    }
+    this.showForm = true;
+  }
+
+  cancel() {
+    this.showForm = false;
+    this.isEditMode = false;
+    this.editingStockId = undefined;
+    this.newStock = { product: '', category: '', quantity: null, price: null };
+    this.addingNewCategory = false;
+    this.customCategory = '';
+  }
+
+  onCategoryChange() {
+    this.addingNewCategory = this.newStock.category === '__add_new__';
+    if (this.addingNewCategory) this.customCategory = '';
+  }
+
+  addCustomCategory() {
+    const newCat = this.customCategory.trim();
+    if (!newCat) {
+      Swal.fire('Warning', 'Category name cannot be empty!', 'warning');
+      return;
+    }
+    if (this.categories.includes(newCat)) {
+      Swal.fire('Info', 'This category already exists!', 'info');
+      return;
+    }
+    this.categories.push(newCat);
+    this.newStock.category = newCat;
+    this.addingNewCategory = false;
+    Swal.fire('Success', `Category "${newCat}" added!`, 'success');
   }
 
   addStock() {
@@ -54,22 +109,31 @@ export class ManagestockComponent {
       price: this.newStock.price
     };
 
-    this.stockService.addStock(dto).subscribe({
-      next: (res) => {
-        this.loadStocks();
-        this.newStock = { product: '', category: '', quantity: null , price: null };
-        this.showForm = false;
-        Swal.fire('Success', res.message, 'success');
-      },
-      error: (err: any) => {
-        Swal.fire('Error', err.message || 'Failed to add stock', 'error');
-      }
-    });
-  }
-
-  cancel() {
-    this.showForm = false;
-    this.newStock = { product: '', category: '', quantity: null , price: null };
+    if (this.isEditMode && this.editingStockId) {
+      // Edit existing stock
+      this.stockService.updateStock(this.editingStockId, dto).subscribe({
+        next: (res) => {
+          this.loadStocks();
+          this.cancel();
+          Swal.fire('Updated!', 'Stock item updated successfully.', 'success');
+        },
+        error: (err) => {
+          Swal.fire('Error', err.message || 'Failed to update stock', 'error');
+        }
+      });
+    } else {
+      // Add new stock
+      this.stockService.addStock(dto).subscribe({
+        next: (res) => {
+          this.loadStocks();
+          this.cancel();
+          Swal.fire('Success', res.message, 'success');
+        },
+        error: (err: any) => {
+          Swal.fire('Error', err.message || 'Failed to add stock', 'error');
+        }
+      });
+    }
   }
 
   deleteStock(stock: Stock, index: number) {
@@ -101,22 +165,16 @@ export class ManagestockComponent {
     });
   }
 
-  // ✅ Filtered list (search)
   get filteredStock() {
     const term = this.searchTerm.toLowerCase();
-
     const filtered = this.stockList.filter(stock =>
       stock.product?.toLowerCase().includes(term) ||
       stock.category?.toLowerCase().includes(term)
     );
-
-    // update pagination when searching
     this.updatePagination(filtered);
-
     return filtered;
   }
 
-  // ✅ Stock status colors + text
   getStockStatus(stock: Stock): { text: string, className: string } {
     if (stock.quantity === null) return { text: '-', className: '' };
     if (stock.quantity <= 5) return { text: 'Low Stock', className: 'low' };
@@ -124,7 +182,6 @@ export class ManagestockComponent {
     return { text: 'Good Stock', className: 'good' };
   }
 
-  // ✅ Load all stocks
   loadStocks() {
     this.stockService.getMyStocks().subscribe({
       next: (res: any[]) => {
@@ -136,7 +193,6 @@ export class ManagestockComponent {
           price: s.price,
           createdAt: new Date(s.createdAt).toLocaleString()
         }));
-
         this.updatePagination();
       },
       error: (err) => {
@@ -146,10 +202,8 @@ export class ManagestockComponent {
     });
   }
 
-  // ✅ Pagination logic
   updatePagination(filteredList?: Stock[]) {
     const list = filteredList || this.stockList;
-
     this.totalPages = Math.ceil(list.length / this.pageSize);
     this.totalPagesArray = Array.from({ length: this.totalPages }, (_, i) => i + 1);
 

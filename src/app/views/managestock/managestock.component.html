@@ -40,7 +40,7 @@
             </span>
           </td>
           <td>
-            <button class="edit-btn">Edit</button>
+            <button class="edit-btn" (click)="toggleForm(stock)">Edit</button>
             <button class="delete-btn" (click)="deleteStock(stock, i)">Delete</button>
           </td>
         </tr>
@@ -48,54 +48,97 @@
     </table>
   </div>
 
-  <!-- ✅ PAGINATION BLOCK (Only new addition) -->
+  <!-- Pagination -->
   <div class="pagination" *ngIf="totalPages > 1">
     <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-
     <button
       *ngFor="let page of totalPagesArray"
       (click)="goToPage(page)"
-      [class.active]="page === currentPage">
+      [class.active]="page === currentPage"
+    >
       {{ page }}
     </button>
-
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
-  <!-- END PAGINATION BLOCK -->
 
-  <!-- Add Stock Modal Form -->
+  <!-- Add/Edit Stock Modal Form -->
   <div class="add-stock-form" *ngIf="showForm">
     <div class="form-box">
-      <h3>Add New Stock</h3>
+      <h3>{{ isEditMode ? 'Edit Stock' : 'Add New Stock' }}</h3>
 
       <form (ngSubmit)="addStock()" novalidate>
         <div class="form-group">
-          <input type="text" id="product" name="product" [(ngModel)]="newStock.product" placeholder=" " required/>
+          <input
+            type="text"
+            id="product"
+            name="product"
+            [(ngModel)]="newStock.product"
+            placeholder=" "
+            required
+          />
           <label for="product">Product Name</label>
         </div>
 
+        <!-- Category Dropdown -->
         <div class="form-group">
-          <select id="category" name="category" [(ngModel)]="newStock.category" required>
+          <select
+            id="category"
+            name="category"
+            [(ngModel)]="newStock.category"
+            (change)="onCategoryChange()"
+            required
+          >
             <option value="" disabled hidden>Choose Category</option>
-            <option value="Medicine">Medicine</option>
-            <option value="Supplement">Supplement</option>
-            <option value="Others">Others</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            <option value="__add_new__">➕ Add New Category</option>
           </select>
           <label for="category">Category</label>
         </div>
 
+        <!-- New Category Input -->
+        <div class="form-group" *ngIf="addingNewCategory">
+          <input
+            type="text"
+            id="newCategory"
+            name="newCategory"
+            [(ngModel)]="customCategory"
+            placeholder=" "
+            required
+          />
+          <label for="newCategory">New Category Name</label>
+          <button type="button" class="add-category-btn" (click)="addCustomCategory()">
+            Add Category
+          </button>
+        </div>
+
         <div class="form-group">
-          <input type="number" id="quantity" name="quantity" [(ngModel)]="newStock.quantity" placeholder=" " required/>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            [(ngModel)]="newStock.quantity"
+            placeholder=" "
+            required
+          />
           <label for="quantity">Quantity</label>
         </div>
 
         <div class="form-group">
-          <input type="number" id="quantity" name="quantity" [(ngModel)]="newStock.price" placeholder=" " required/>
-          <label for="quantity">price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            [(ngModel)]="newStock.price"
+            placeholder=" "
+            required
+          />
+          <label for="price">Price</label>
         </div>
 
         <div class="form-buttons">
-          <button type="submit" class="save-btn">Save</button>
+          <button type="submit" class="save-btn">
+            {{ isEditMode ? 'Update' : 'Save' }}
+          </button>
           <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
         </div>
       </form>

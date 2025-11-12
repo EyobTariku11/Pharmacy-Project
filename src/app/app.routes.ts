@@ -9,18 +9,19 @@ import { PharmaListComponent } from './views/customer/pharma-list/pharma-list.co
 import { AdminComponent } from './views/admin/admin.component'; 
 import { ExploreMedicineComponent } from './views/customer/explore-medicine/explore-medicine.component'; 
 import { LandingComponent } from './views/landing/landing.component'; 
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Default route
   { path: 'login', component: LoginComponent }, // Login page
   { path: 'signup', component: SignupComponent }, // Signup page
-  { path: 'manageproduct', component: ProductaddformComponent }, // Signup page
-  { path: 'ownerhome', component: OwnerhomeComponent }, // Signup page
-  { path: 'managestock', component: ManagestockComponent }, // Signup page
-  { path: 'customer',component:CustomerComponent},
-  { path: 'pharma-list',component:PharmaListComponent},
-  { path: 'admin',component:AdminComponent},
-  {path: 'explore-medicine',component:ExploreMedicineComponent},
+  { path: 'manageproduct', component: ProductaddformComponent, canActivate: [AuthGuard] }, // Signup page
+  { path: 'ownerhome', component: OwnerhomeComponent , canActivate: [AuthGuard] }, // Signup page
+  { path: 'managestock', component: ManagestockComponent , canActivate: [AuthGuard] }, // Signup page
+  { path: 'customer',component:CustomerComponent , canActivate: [AuthGuard]},
+  { path: 'pharma-list',component:PharmaListComponent , canActivate: [AuthGuard]},
+  { path: 'admin',component:AdminComponent },
+  {path: 'explore-medicine',component:ExploreMedicineComponent , canActivate: [AuthGuard]},
   {path: 'landing',component:LandingComponent},
 
   { path: '**', redirectTo: 'login', pathMatch: 'full' } // Wildcard fallback

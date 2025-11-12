@@ -41,10 +41,18 @@
         <span></span>
         <span></span>
       </div>
+     
+
       <div class="topbar-right">
         <!-- Display logged-in user's name -->
         <span class="welcome-text">Welcome, {{ userFullName }}</span>
+        
+        <!-- Logout button -->
+        <button class="logout-btn" (click)="logout()" title="Logout">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
       </div>
+      
     </header>
 
     <!-- Content area -->

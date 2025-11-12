@@ -17,4 +17,8 @@ export class PharmacyService {
   getAllPharmacies(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
+
+  removePharmacy(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`);
+  }
 }

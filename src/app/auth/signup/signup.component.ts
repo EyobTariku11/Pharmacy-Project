@@ -84,7 +84,7 @@ export class SignupComponent {
         }).then(() => {
         
           if (user.role.toLowerCase() === 'pharmacyowner') {
-            this.router.navigate(['/manageproduct']); // or your pharmacy owner details page
+            this.router.navigate(['/login']); // or your pharmacy owner details page
           } else {
             this.router.navigate(['/login']); // customers go to login
           }

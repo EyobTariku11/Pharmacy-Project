@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-// DTO for adding stock
+// DTO for adding/updating stock
 export interface StockDto {
   product: string;
   category: string;
@@ -31,7 +31,6 @@ export class StockService {
 
   constructor(private http: HttpClient) {}
 
-  // Auth headers for logged-in requests
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') || '';
     return new HttpHeaders({
@@ -40,7 +39,6 @@ export class StockService {
     });
   }
 
-  // Add stock (for logged-in user)
   addStock(stock: StockDto): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add`, stock, { headers: this.getAuthHeaders() })
       .pipe(
@@ -54,7 +52,19 @@ export class StockService {
       );
   }
 
-  // Get all stocks (public, all users)
+  updateStock(id: number, stock: StockDto): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update/${id}`, stock, { headers: this.getAuthHeaders() })
+      .pipe(
+        catchError(err => {
+          console.error('Update stock error:', err);
+          let message = 'Failed to update stock';
+          if (err.error?.message) message = err.error.message;
+          else if (err.error?.error) message = err.error.error;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
   getAllStocksPublic(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${this.apiUrl}/all`)
       .pipe(
@@ -68,7 +78,6 @@ export class StockService {
       );
   }
 
-  // Get stocks for logged-in user
   getMyStocks(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${this.apiUrl}`, { headers: this.getAuthHeaders() })
       .pipe(
