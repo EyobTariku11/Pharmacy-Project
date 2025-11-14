@@ -1,213 +1,288 @@
 /* ====== Page Layout ====== */
 .user-management-container {
-    padding: 30px;
-    font-family: "Montserrat", sans-serif;
-    color: #333;
-    background-color: #fff;
-    min-height: 100vh;
-  }
-  
-  /* ====== Header Section ====== */
-  .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-  }
-  
-  .header-section h2 {
-    font-size: 28px;
-    font-weight: 600;
-    color: #1f8c4d;
-  }
-  
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .search-input {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    outline: none;
-    font-size: 14px;
-    width: 240px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .search-input:focus {
-    border-color: #1f8c4d;
-    box-shadow: 0 0 6px rgba(31, 140, 77, 0.4);
-  }
-  
-  /* ====== Table Section ====== */
-  .table-wrapper {
-    background-color: #fff;
-    border-radius: 18px;
-    box-shadow: 0 0 20px rgba(31, 140, 77, 0.2);
-    overflow: hidden;
-  }
-  
-  .user-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .user-table thead {
-    background-color: #1f8c4d;
-    color: #fff;
-  }
-  
-  .user-table th,
-  .user-table td {
-    padding: 14px 18px;
-    text-align: left;
-    font-size: 15px;
-  }
-  
-  .user-table th {
-    font-weight: 600;
-  }
-  
-  .user-table tbody tr {
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s ease;
-  }
-  
-  .user-table tbody tr:hover {
-    background-color: #f4f6f8;
-    transform: scale(1.005);
-  }
-  
-  /* ====== Status Tags ====== */
-  .status {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    display: inline-block;
-    text-align: center;
-  }
-  
-  .status.active {
-    background-color: #e6f9ed;
-    color: #28a745;
-  }
-  
-  .status.pending {
-    background-color: #fff4e5;
-    color: #ff9800;
-  }
-  
-  .status.blocked {
-    background-color: #fdecea;
-    color: #dc3545;
-  }
-  
-  /* ====== Action Buttons ====== */
-  .accept-btn,
-  .reject-btn {
-    padding: 6px 12px;
-    font-size: 13px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-right: 5px;
-    transition: 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .accept-btn {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .accept-btn:hover {
-    background-color: #1e7e34;
-  }
-  
-  .reject-btn {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .reject-btn:hover {
-    background-color: #b02a37;
-  }
-  
-  /* ====== Pagination ====== */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 8px;
-  }
-  
-  .pagination button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .pagination button:hover:not(:disabled) {
-    background-color: #1e7e34;
-    transform: translateY(-2px);
-  }
-  
-  .pagination button:disabled {
-    background-color: #a8a8a8;
-    cursor: not-allowed;
-  }
-  
-  .pagination button.active {
-    color: #ff9800;
-    font-weight: bold;
-  }
-  
-  /* ====== Responsive: Mobile & Tablet ====== */
-  @media (max-width: 900px) {
-    .user-management-container {
+  padding: 30px;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* ====== Header Section ====== */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1f8c4d;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-input {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  font-size: 14px;
+  width: 240px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #1f8c4d;
+  box-shadow: 0 0 6px rgba(31, 140, 77, 0.4);
+}
+
+/* ====== Table Section ====== */
+.table-wrapper {
+  background-color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 20px rgba(31, 140, 77, 0.2);
+  overflow: hidden;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table thead {
+  background-color: #1f8c4d;
+  color: #fff;
+}
+
+.user-table th,
+.user-table td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.user-table th {
+  font-weight: 600;
+}
+
+.user-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f4f6f8;
+  transform: scale(1.005);
+}
+
+/* ====== Status Tags ====== */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+}
+
+.status.active {
+  background-color: #e6f9ed;
+  color: #28a745;
+}
+
+.status.pending {
+  background-color: #fff4e5;
+  color: #ff9800;
+}
+
+.status.blocked {
+  background-color: #fdecea;
+  color: #dc3545;
+}
+
+/* ====== Toggle Switch ====== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #28a745;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 26px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* ====== Delete Button ====== */
+.delete-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #dc3545;
+  color: #fff;
+  transition: 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* ====== Actions Cell (Toggle + Delete) ====== */
+.actions-cell {
+  display: flex;
+  align-items: center;
+}
+
+/* ====== Pagination ====== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+  background-color: #a8a8a8;
+  cursor: not-allowed;
+}
+
+.pagination button.active {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+/* ====== Status Filter Buttons ====== */
+.status-filters {
+  display: flex;
+  gap: 10px;
+}
+
+.status-filters button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.status-filters button:hover {
+  background-color: #e0e0e0;
+}
+
+.status-filters button.active {
+  background-color: #1f8c4d;
+  color: #fff;
+  font-weight: 500;
+}
+
+
+/* ====== Responsive: Mobile & Tablet ====== */
+@media (max-width: 900px) {
+  .user-management-container {
       padding: 20px;
-    }
-  
-    .header-section {
+  }
+
+  .header-section {
       flex-direction: column;
       align-items: flex-start;
       gap: 15px;
-    }
-  
-    .search-input {
+  }
+
+  .search-input {
       width: 100%;
-    }
-  
-    .table-wrapper {
+  }
+
+  .table-wrapper {
       overflow-x: auto;
-    }
-  
-    .user-table th,
-    .user-table td {
+  }
+
+  .user-table th,
+  .user-table td {
       padding: 10px 12px;
       font-size: 13px;
-    }
   }
-  
-  @media (max-width: 600px) {
-    .header-section h2 {
+}
+
+@media (max-width: 600px) {
+  .header-section h2 {
       font-size: 22px;
-    }
-  
-    .accept-btn,
-    .reject-btn {
-      padding: 10px 16px;
-      font-size: 14px;
-    }
   }
-  
+
+  .delete-btn,
+  .switch {
+      transform: scale(0.9);
+  }
+}

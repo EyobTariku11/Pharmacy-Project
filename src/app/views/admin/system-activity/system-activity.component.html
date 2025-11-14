@@ -1,70 +1,55 @@
 <div class="system-activity-container">
-    <h2 class="page-title">System Activity Overview</h2>
-  
-    <div class="cards-container">
-      <!-- Total Users Card -->
-      <div class="card users-card">
-        <div class="card-icon">
-          <i class="fas fa-users"></i>
-        </div>
-        <div class="card-content">
-          <p class="card-title">Total Users</p>
-          <h3>{{ totalUsers }}</h3>
-        </div>
-      </div>
-  
-      <!-- Total Pharmacies Card -->
-      <div class="card pharmacies-card">
-        <div class="card-icon">
-          <i class="fas fa-prescription-bottle-alt"></i>
-        </div>
-        <div class="card-content">
-          <p class="card-title">Total Pharmacies</p>
-          <h3>{{ totalPharmacies }}</h3>
-        </div>
-      </div>
-  
-      <!-- Active Users Card -->
-      <div class="card active-users-card">
-        <div class="card-icon">
-          <i class="fas fa-user-check"></i>
-        </div>
-        <div class="card-content">
-          <p class="card-title">Active Users</p>
-          <h3>{{ activeUsers }}</h3>
-        </div>
-      </div>
-  
-      <!-- Pending Users Card -->
-      <div class="card pending-users-card">
-        <div class="card-icon">
-          <i class="fas fa-user-clock"></i>
-        </div>
-        <div class="card-content">
-          <p class="card-title">Pending Users</p>
-          <h3>{{ pendingUsers }}</h3>
-        </div>
-      </div>
-  
-      <!-- Blocked Users Card -->
-      <div class="card blocked-users-card">
-        <div class="card-icon">
-          <i class="fas fa-user-slash"></i>
-        </div>
-        <div class="card-content">
-          <p class="card-title">Blocked Users</p>
-          <h3>{{ blockedUsers }}</h3>
-        </div>
+  <h2 class="page-title">System Activity Overview</h2>
+
+  <div class="cards-container">
+    <div class="card users-card">
+      <div class="card-icon"><i class="fas fa-users"></i></div>
+      <div class="card-content">
+        <p class="card-title">Total Users</p>
+        <h3>{{ totalUsers }}</h3>
       </div>
     </div>
-  
-    <!-- Graph / Reports Section -->
-    <div class="reports-section">
-      <h3 class="reports-title">User Activity Reports</h3>
-      <div class="chart-container">
-        <canvas id="userActivityChart"></canvas>
-        <!-- Later integrate Chart.js to populate this chart -->
+
+    <div class="card pharmacies-card">
+      <div class="card-icon"><i class="fas fa-prescription-bottle-alt"></i></div>
+      <div class="card-content">
+        <p class="card-title">Total Pharmacies</p>
+        <h3>{{ totalPharmacies }}</h3>
+      </div>
+    </div>
+
+    <div class="card active-users-card">
+      <div class="card-icon"><i class="fas fa-user-check"></i></div>
+      <div class="card-content">
+        <p class="card-title">Active Users</p>
+        <h3>{{ activeUsers }}</h3>
+      </div>
+    </div>
+
+    <div class="card pending-users-card">
+      <div class="card-icon"><i class="fas fa-user-clock"></i></div>
+      <div class="card-content">
+        <p class="card-title">Pending Users</p>
+        <h3>{{ pendingUsers }}</h3>
+      </div>
+    </div>
+
+    <div class="card blocked-users-card">
+      <div class="card-icon"><i class="fas fa-user-slash"></i></div>
+      <div class="card-content">
+        <p class="card-title">Blocked Users</p>
+        <h3>{{ blockedUsers }}</h3>
       </div>
     </div>
   </div>
-  
+
+  <div class="reports-section">
+    <h3 class="reports-title">User Activity Reports</h3>
+    <div class="chart-container">
+      <canvas id="userActivityChart"></canvas>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <button class="export-btn" (click)="exportToExcel()">Export to Excel</button>
+    </div>
+  </div>
+</div>

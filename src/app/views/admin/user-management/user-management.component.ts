@@ -22,8 +22,8 @@ interface User {
 })
 export class UserManagementComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
+  statusFilter: '' | 'Pending' | 'Active' | 'Blocked' = '';
   users: User[] = [];
-
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 1;
@@ -42,35 +42,48 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.hubConnection) {
-      this.hubConnection.stop();
-    }
+    if (this.hubConnection) this.hubConnection.stop();
   }
 
   loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (res: User[]) => {
         this.users = res;
-        this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+        this.updatePagination();
       },
-      error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed to load users',
-          text: err.message || 'Unknown error'
-        });
-        console.error('Failed to load users:', err);
-      }
+      error: (err) => Swal.fire('Error', err.message || 'Failed to load users', 'error')
     });
+  }
+
+  setStatusFilter(status: '' | 'Pending' | 'Active' | 'Blocked') {
+    this.statusFilter = status;
+    this.currentPage = 1; // reset to first page when filter changes
+    this.updatePagination();
   }
 
   get filteredUsers() {
     const term = this.searchTerm.toLowerCase();
-    const filtered = this.users.filter(u =>
+    let filtered = this.users.filter(u =>
       u.fullName.toLowerCase().includes(term) || u.email.toLowerCase().includes(term)
     );
+
+    if (this.statusFilter) {
+      filtered = filtered.filter(u => u.status === this.statusFilter);
+    }
+
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return filtered.slice(start, start + this.itemsPerPage);
+  }
+
+  updatePagination() {
+    const term = this.searchTerm.toLowerCase();
+    let filtered = this.users.filter(u =>
+      u.fullName.toLowerCase().includes(term) || u.email.toLowerCase().includes(term)
+    );
+    if (this.statusFilter) {
+      filtered = filtered.filter(u => u.status === this.statusFilter);
+    }
+    this.totalPages = Math.ceil(filtered.length / this.itemsPerPage);
   }
 
   get totalPagesArray() {
@@ -81,47 +94,56 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   nextPage() { if (this.currentPage < this.totalPages) this.currentPage++; }
   goToPage(page: number) { this.currentPage = page; }
 
-  acceptUser(user: User) {
+  // -------------------- TOGGLE WITH CONFIRMATION --------------------
+  confirmToggleStatus(user: User, event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const newStatus: 'Active' | 'Blocked' = checkbox.checked ? 'Active' : 'Blocked';
+    
     Swal.fire({
-      title: 'Accept User?',
-      text: `Do you want to accept ${user.fullName}?`,
-      icon: 'question',
+      title: `Change status to ${newStatus}?`,
+      text: `Are you sure you want to set ${user.fullName}'s status to ${newStatus}?`,
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, accept',
+      confirmButtonText: 'Yes, change it',
       cancelButtonText: 'Cancel'
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
-        this.userService.updateUserStatus(user.id, 'Active').subscribe({
-          next: () => {
-            user.status = 'Active';
-            Swal.fire('Accepted!', `${user.fullName} is now active.`, 'success');
-          },
-          error: (err) => {
-            Swal.fire('Error!', err.message || 'Failed to accept user', 'error');
-          }
-        });
+        this.toggleUserStatus(user, newStatus);
+      } else {
+        // Revert toggle if cancelled
+        checkbox.checked = !checkbox.checked;
       }
     });
   }
 
-  rejectUser(user: User) {
+  toggleUserStatus(user: User, newStatus: 'Active' | 'Blocked') {
+    this.userService.updateUserStatus(user.id, newStatus).subscribe({
+      next: () => {
+        user.status = newStatus;
+        Swal.fire('Success', `${user.fullName} status updated to ${newStatus}`, 'success');
+      },
+      error: (err) => Swal.fire('Error', err.message || 'Failed to update status', 'error')
+    });
+  }
+
+  // -------------------- DELETE USER --------------------
+  deleteUser(user: User) {
     Swal.fire({
-      title: 'Reject User?',
-      text: `Do you want to reject ${user.fullName}?`,
+      title: 'Delete User?',
+      text: `Are you sure you want to delete ${user.fullName}?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, reject',
+      confirmButtonText: 'Yes, delete',
       cancelButtonText: 'Cancel'
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
-        this.userService.updateUserStatus(user.id, 'Blocked').subscribe({
+        this.userService.removeUser(user.id).subscribe({
           next: () => {
-            user.status = 'Blocked';
-            Swal.fire('Rejected!', `${user.fullName} has been blocked.`, 'success');
+            this.users = this.users.filter(u => u.id !== user.id);
+            this.updatePagination();
+            Swal.fire('Deleted!', `${user.fullName} has been removed.`, 'success');
           },
-          error: (err) => {
-            Swal.fire('Error!', err.message || 'Failed to reject user', 'error');
-          }
+          error: (err) => Swal.fire('Error', err.message || 'Failed to delete user', 'error')
         });
       }
     });
@@ -134,18 +156,17 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection
-      .start()
+    this.hubConnection.start()
       .then(() => console.log('SignalR connected'))
       .catch(err => console.error('SignalR connection error:', err));
 
     this.hubConnection.on('ReceiveStatusUpdate', (updatedStatus: any) => {
-      // Run inside Angular zone so change detection works
       this.ngZone.run(() => {
         const user = this.users.find(u => u.email.toLowerCase() === updatedStatus.email.toLowerCase());
         if (user) {
           user.status = updatedStatus.status;
-          this.cd.detectChanges(); // Force refresh UI
+          this.updatePagination();
+          this.cd.detectChanges();
         }
       });
     });
