@@ -64,7 +64,7 @@ export class StockService {
         })
       );
   }
-
+//get all
   getAllStocksPublic(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${this.apiUrl}/all`)
       .pipe(
