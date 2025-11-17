@@ -78,7 +78,7 @@
   .topbar-right {
     display: flex;
     align-items: center;
-    gap: 10px; /* space between name and logout */
+    gap: 10px; /* space bdssdsetween name and logout */
   }
   
   .welcome-text {
