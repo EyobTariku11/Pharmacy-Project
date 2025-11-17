@@ -68,7 +68,7 @@
     color: white;
     font-size: 18px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;  /* space bdssdsetween name and logout */
   }
   
   .nav-links li a:hover {
